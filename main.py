@@ -1,5 +1,38 @@
 from spydetails import spy_name, spy_salutation, spy_rating, spy_age, spy_online_status
+Status_messages=['Keep Calm','Peace','Do not disturb']
+print "Welcome to SpyChat!"
 choice =raw_input("Do you want to continue as " + spy_salutation + " " + spy_name + " (Y/N)? ")
+def add_status(current_status_message):
+    updated_status_message=None
+    if current_status_message!=None:
+        print "Your current status is %s" %(current_status_message)
+    else:
+        print "You don't have any current status"
+    ques=raw_input("Do you want to choose from the older status message? (Y/N)")
+    if ques=='Y' or ques=='y':
+        message_position=1;
+        for message in Status_messages:
+            print "%d. %s" %(message_position,message)
+            message_position+=1
+        message_choice=int(raw_input("Choose from the above messages."))
+        if len(Status_messages)>=message_choice:
+            updated_status_message=Status_messages[message_choice-1]
+        else:
+            print "Invalid message choice."
+    elif ques=='N' or ques=='n':
+        new_status=raw_input("Write your new status update.")
+        if len(new_status)>0:
+            Status_message=Status_messages.append(new_status)
+            updated_status_message=new_status
+    else:
+        print "Invalid choice."
+    if updated_status_message:
+        print "Your updated status is %s" %(updated_status_message)
+    else:
+        print "You have not updated your status."
+    return updated_status_message
+
+
 def chat(spy_name,spy_age,spy_rating,spy_online_status):
     current_status_message = None
     if spy_age>12 and spy_age<50:
@@ -23,12 +56,18 @@ def chat(spy_name,spy_age,spy_rating,spy_online_status):
             print "5.Read chats from a user"
             print "6.Close application"
             ch=int(raw_input("What is your choice?"))
+            if ch==1:
+                current_status_message=add_status(current_status_message)
+            else:
+                menu=False
 
     else:
         print "You are not of the correct age to be a spy."
+
+
 if choice=='Y' or choice=='y':
     chat(spy_name,spy_age,spy_rating,spy_online_status)
-else:
+elif choice=='N' or choice=='n':
     spy_name = raw_input("Welcome to SpyChat, please tell your spyname first :")
     spy_online_status = False
     if len(spy_name) > 0:
@@ -41,5 +80,7 @@ else:
         chat(spy_name,spy_age,spy_rating,spy_online_status)
     else:
         print "The Spyname entered was invalid.Try again."
+else:
+    print "Enter a valid choice"
 
 
