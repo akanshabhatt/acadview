@@ -1,11 +1,33 @@
 from spydetails import spy_name, spy_salutation, spy_rating, spy_age, spy_online_status
 Status_messages=['Keep Calm','Peace','Do not disturb']
+friend_name=[]
+friend_age=[]
+friend_rating=[]
+friend_is_online=[]
 print "Welcome to SpyChat!"
 choice =raw_input("Do you want to continue as " + spy_salutation + " " + spy_name + " (Y/N)? ")
+
+def add_friend():
+    new_name=raw_input("What is your friend's name?")
+    if len(new_name)>0:
+        new_age = int(raw_input("What is your friend's age?"))
+        if new_age>12 and new_age<=50:
+            new_rating = float(raw_input("What is your friend's rating?"))
+            friend_name.append(new_name)
+            friend_age.append(new_age)
+            friend_rating.append(new_rating)
+            friend_is_online.append(True)
+            print "Friend is added"
+        else:
+            print "Age entered is invalid."
+    else:
+        print "Name entered is invalid."
+    return len(friend_name)
+
 def add_status(current_status_message):
     updated_status_message=None
     if current_status_message!=None:
-        print "Your current status is %s" %(current_status_message)
+        print "Your current status is:  %s" %(current_status_message)
     else:
         print "You don't have any current status"
     ques=raw_input("Do you want to choose from the older status message? (Y/N)")
@@ -22,7 +44,7 @@ def add_status(current_status_message):
     elif ques=='N' or ques=='n':
         new_status=raw_input("Write your new status update.")
         if len(new_status)>0:
-            Status_message=Status_messages.append(new_status)
+            Status_messages.append(new_status)
             updated_status_message=new_status
     else:
         print "Invalid choice."
@@ -58,6 +80,9 @@ def chat(spy_name,spy_age,spy_rating,spy_online_status):
             ch=int(raw_input("What is your choice?"))
             if ch==1:
                 current_status_message=add_status(current_status_message)
+            elif ch==2:
+                friends=add_friend()
+                print "The spy has %d friends" %(friends)
             else:
                 menu=False
 
